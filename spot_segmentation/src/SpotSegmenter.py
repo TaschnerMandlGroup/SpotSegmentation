@@ -28,7 +28,9 @@ class SpotSegmenter:
         elif len(rgb_image.shape) == 3:
             rgb_image = np.array([rgb_image])
 
-        image, height_diff, width_diff = utils.preprocess(rgb_image, channel)
+        int_image = utils.convert_dtype(rgb_image)
+
+        image, height_diff, width_diff = utils.preprocess(int_image, channel)
         
         probabilities = self.model.predict(image)
         segmentation_results = probabilities[:,:,:,0] > 0.875
